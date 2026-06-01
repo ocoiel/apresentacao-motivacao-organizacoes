@@ -437,12 +437,15 @@ body.notes-hidden .notes{display:none}
 .s-end .sig .endmark b{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:38px;color:var(--paper);text-transform:none;letter-spacing:-.01em;font-weight:500;margin-bottom:4px}
 
 /* ============================================================ HUD ============================================================ */
-.hud{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;padding:8px 14px;background:rgba(8,11,21,.7);border:1px solid var(--line);border-radius:50px;backdrop-filter:blur(10px);z-index:99;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(244,240,232,.7);letter-spacing:.14em}
-.hud button{width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.06);color:var(--paper);cursor:pointer;display:grid;place-items:center;transition:background .2s;font-size:14px}
+.hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;padding:5px 9px;background:rgba(8,11,21,.7);border:1px solid var(--line);border-radius:50px;backdrop-filter:blur(10px);z-index:99;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(244,240,232,.7);letter-spacing:.1em;opacity:.5;transition:opacity .25s ease,transform .25s ease}
+.hud:hover{opacity:1}
+.hud button{width:22px;height:22px;border-radius:50%;border:none;background:rgba(255,255,255,.06);color:var(--paper);cursor:pointer;display:grid;place-items:center;transition:background .2s;font-size:12px}
 .hud button:hover{background:rgba(255,140,66,.25)}
-.hud .pos{padding:0 8px;font-weight:600}
+.hud .pos{padding:0 5px;font-weight:600}
 .hud .pos b{color:var(--gold)}
-.hud .key{padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);font-size:10px}
+.hud .key{padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);font-size:10px;cursor:pointer;transition:background .2s}
+.hud .key:hover{background:rgba(255,140,66,.25)}
+body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(14px)}
 </style>
 </head>
 <body class="notes-hidden">
@@ -980,10 +983,11 @@ body.notes-hidden .notes{display:none}
 </div>
 
 <div class="hud">
-  <button id="prev" title="Anterior">‹</button>
-  <span class="pos"><b id="cur">01</b> / <span id="tot">18</span></span>
-  <button id="next" title="Próximo">›</button>
-  <span class="key">F</span><span style="opacity:.7">tela cheia</span>
+  <button id="prev" title="Anterior · ou clique direito">‹</button>
+  <span class="pos"><b id="cur">01</b>/<span id="tot">18</span></span>
+  <button id="next" title="Próximo · ou clique esquerdo">›</button>
+  <span class="key" id="keyF" title="Tela cheia (F)">F</span>
+  <span class="key" id="keyH" title="Esconder / mostrar barra (H)">H</span>
 </div>
 
 <script>
@@ -1009,9 +1013,13 @@ body.notes-hidden .notes{display:none}
   }
   function next(){ show(current+1) }
   function prev(){ show(current-1) }
+  function toggleFs(){ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+  function toggleHud(){ document.body.classList.toggle('hud-hidden'); }
 
   nextBtn.addEventListener('click', next);
   prevBtn.addEventListener('click', prev);
+  document.getElementById('keyF').addEventListener('click', toggleFs);
+  document.getElementById('keyH').addEventListener('click', toggleHud);
 
   document.addEventListener('keydown', e=>{
     if (e.key==='ArrowRight' || e.key==='PageDown' || e.key===' ') { e.preventDefault(); next(); }
@@ -1019,11 +1027,13 @@ body.notes-hidden .notes{display:none}
     if (e.key==='Home') show(0);
     if (e.key==='End')  show(total-1);
     if (e.key==='n' || e.key==='N') document.body.classList.toggle('notes-hidden');
-    if (e.key==='f' || e.key==='F') {
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-      else document.exitFullscreen?.();
-    }
+    if (e.key==='h' || e.key==='H') toggleHud();
+    if (e.key==='f' || e.key==='F') toggleFs();
   });
+
+  /* clique esquerdo avança · clique direito volta */
+  document.addEventListener('click', e=>{ if(e.target.closest('.hud')) return; next(); });
+  document.addEventListener('contextmenu', e=>{ e.preventDefault(); if(e.target.closest('.hud')) return; prev(); });
 
   // touch
   let tx=0;

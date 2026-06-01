@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>À Procura da Felicidade · A Motivação nas Organizações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CO · UFPR — Apresentação (TEMA CLARO)
+   A Motivação nas Organizações · À Procura da Felicidade
+   ============================================================ */
+:root{
+  --ink:#1B1B2B;
+  --ink-soft:#43434F;
+  --muted:#8C8676;
+  --paper:#F5F1E8;
+  --paper-2:#ECE5D7;
+  --surface:#FFFFFF;
+  --surface-2:#FBF8F1;
+  --line:rgba(27,27,43,.10);
+  --line-strong:rgba(27,27,43,.20);
+  --ember:#E2590B;
+  --ember-soft:#FCEADC;
+  --gold:#B07400;
+  --gold-bright:#E0A21A;
+  --gold-soft:#FAF0D7;
+  --violet:#6D28D9;
+  --violet-bright:#8B5CF6;
+  --violet-soft:#EEE8FB;
+  --green:#0E8A6B;
+  --green-soft:#DFF3EC;
+  --red:#C8434B;
+  --red-soft:#FBE6E6;
+  --shadow:0 18px 50px -22px rgba(60,45,15,.28);
+  --shadow-sm:0 6px 18px -10px rgba(60,45,15,.30);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#cfc9bc;color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;font-feature-settings:'ss01','cv11';-webkit-font-smoothing:antialiased}
+
+/* ====== STAGE & DECK ====== */
+.stage{position:fixed;inset:0;background:#cfc9bc;overflow:hidden}
+.deck{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(1);transform-origin:center center;background:var(--paper);box-shadow:var(--shadow);overflow:hidden;isolation:isolate;will-change:transform}
+.deck::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:var(--grain);opacity:.04;mix-blend-mode:multiply;z-index:50}
+
+/* ====== SLIDE BASE ====== */
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;padding:64px 80px 92px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);z-index:0;transition:opacity .35s ease}
+.slide.is-active{opacity:1;visibility:visible;pointer-events:auto;z-index:2;animation:slideIn .55s cubic-bezier(.2,.7,.2,1) both}
+@keyframes slideIn{from{transform:translateY(14px) scale(.995);filter:blur(6px)}to{transform:none;filter:none}}
+
+/* ====== CHROME ====== */
+.chrome-top{position:absolute;left:80px;right:80px;top:32px;display:flex;justify-content:space-between;align-items:center;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;z-index:3}
+.chrome-top .mark{display:flex;gap:14px;align-items:center}
+.chrome-top .mark .dot{width:8px;height:8px;background:var(--ember);border-radius:50%;box-shadow:0 0 12px rgba(226,89,11,.5)}
+.chrome-bottom{position:absolute;left:80px;right:80px;bottom:28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;z-index:3}
+.chrome-bottom .ticker{display:flex;gap:18px;align-items:center}
+.chrome-bottom .ticker .num{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ember)}
+
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(27,27,43,.06);z-index:4}
+.progress__bar{height:100%;background:linear-gradient(90deg,var(--ember),var(--gold-bright));transition:width .5s ease}
+
+/* ====== NOTES (escondidas · tecla N) ====== */
+.notes{position:absolute;left:80px;right:80px;bottom:56px;background:rgba(255,255,255,.94);border:1px solid var(--line-strong);border-left:3px solid var(--ember);border-radius:10px;padding:14px 18px;display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:start;font-size:13px;line-height:1.5;color:var(--ink-soft);backdrop-filter:blur(8px);box-shadow:var(--shadow-sm);z-index:5;max-height:180px;overflow:auto}
+.notes__meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+.notes__meta b{display:block;color:var(--ink);font-size:14px;letter-spacing:.04em;text-transform:none;margin-top:2px}
+.notes__meta span.t{display:inline-block;margin-top:6px;background:var(--gold-soft);color:var(--gold);padding:3px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.notes__body p{margin:0 0 6px;font-family:'Fraunces',serif;font-size:14.5px;line-height:1.55;color:var(--ink-soft)}
+.notes__body p+p{margin-top:6px}
+.notes__body em{color:var(--ember);font-style:normal;font-weight:600}
+body.notes-hidden .notes{display:none}
+
+/* ====== TYPOGRAPHY ====== */
+.kicker{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ember);margin:0 0 16px}
+.h1{font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:84px;line-height:.95;letter-spacing:-.02em;margin:0;color:var(--ink)}
+.h2{font-family:'Fraunces',serif;font-weight:700;font-size:60px;line-height:1;letter-spacing:-.015em;margin:0 0 18px;color:var(--ink)}
+.h4{font-size:18px;font-weight:700;letter-spacing:.04em;margin:0 0 8px;color:var(--ink);text-transform:uppercase}
+.lead{font-family:'Fraunces',serif;font-size:22px;line-height:1.45;color:var(--ink-soft);font-weight:500}
+.mono{font-family:'JetBrains Mono',monospace}
+
+.watermark{position:absolute;right:60px;top:60px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:220px;line-height:.8;color:rgba(27,27,43,.04);pointer-events:none;user-select:none;z-index:0}
+
+/* image placeholder */
+.frame{position:relative;border:1.5px dashed rgba(226,89,11,.4);border-radius:14px;background:linear-gradient(135deg,rgba(226,89,11,.05),rgba(109,40,217,.05));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:rgba(226,89,11,.7);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;overflow:hidden}
+.frame::before{content:"";position:absolute;inset:8px;border:1px solid rgba(226,89,11,.16);border-radius:9px;pointer-events:none}
+.frame .frame-icon{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(226,89,11,.5);display:grid;place-items:center;margin-bottom:12px;font-size:18px;color:var(--ember)}
+.frame .frame-label{color:var(--ember);margin-bottom:6px;font-size:11px;letter-spacing:.2em}
+.frame .frame-hint{color:var(--muted);font-family:'Fraunces',serif;font-style:italic;font-size:13px;text-transform:none;letter-spacing:0;max-width:80%;line-height:1.4}
+
+/* ============================================================ S1 — CAPA ============================================================ */
+.s-cover{background:radial-gradient(ellipse at 18% 28%,rgba(109,40,217,.10),transparent 50%),radial-gradient(ellipse at 92% 82%,rgba(226,89,11,.10),transparent 55%),linear-gradient(180deg,#FBF8F1 0%,#F2ECDF 100%)}
+.s-cover .city{position:absolute;left:0;right:0;bottom:0;height:240px;opacity:.5;background:linear-gradient(180deg,transparent,rgba(236,229,215,.7) 85%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='240' viewBox='0 0 1600 240'><g fill='%23C9C1B0'><rect x='0' y='140' width='80' height='100'/><rect x='80' y='70' width='120' height='170'/><rect x='200' y='100' width='90' height='140'/><rect x='290' y='30' width='110' height='210'/><rect x='400' y='80' width='80' height='160'/><rect x='480' y='120' width='60' height='120'/><rect x='540' y='60' width='100' height='180'/><rect x='640' y='90' width='130' height='150'/><rect x='770' y='30' width='90' height='210'/><rect x='860' y='80' width='140' height='160'/><rect x='1000' y='120' width='70' height='120'/><rect x='1070' y='50' width='110' height='190'/><rect x='1180' y='90' width='100' height='150'/><rect x='1280' y='30' width='130' height='210'/><rect x='1410' y='100' width='80' height='140'/><rect x='1490' y='130' width='110' height='110'/></g></svg>");background-position:bottom center;background-repeat:no-repeat;background-size:cover}
+.s-cover .cover-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .9fr;gap:60px;height:100%;align-items:center}
+.s-cover .cover-title{padding-top:40px}
+.s-cover .cover-title .h1{font-size:108px;letter-spacing:-.025em}
+.s-cover .cover-title .h1 .ital{font-style:italic;color:var(--ember)}
+.s-cover .cover-sub{font-family:'Fraunces',serif;font-style:italic;font-size:26px;color:var(--ink-soft);margin-top:24px;line-height:1.35;max-width:560px}
+.s-cover .cover-sub b{font-style:normal;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.s-cover .meta-line{margin-top:36px;display:flex;gap:18px;align-items:center;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.s-cover .meta-line .sep{width:24px;height:1px;background:var(--line-strong)}
+.s-cover .group{margin-top:56px;padding-top:24px;border-top:1px solid var(--line-strong);display:grid;grid-template-columns:repeat(2,1fr);gap:10px 32px;max-width:520px}
+.s-cover .group b{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:2px}
+.s-cover .group span{font-family:'Fraunces',serif;font-size:18px;color:var(--ink);font-weight:500}
+.s-cover .cover-frame{height:560px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
+.s-cover .filmtag{position:absolute;top:60px;right:80px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--ember);font-weight:600;display:flex;align-items:center;gap:8px}
+.s-cover .filmtag::before{content:"●";color:var(--ember);font-size:14px}
+
+/* ============================================================ S2 — GANCHO ============================================================ */
+.s-hook{background:radial-gradient(circle at 50% 42%,rgba(109,40,217,.07),transparent 60%),var(--paper);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.s-hook::before,.s-hook::after{content:"";position:absolute;left:80px;right:80px;height:1px;background:var(--line-strong);z-index:2}
+.s-hook::before{top:120px}.s-hook::after{bottom:120px}
+.s-hook .quote{position:relative;z-index:3;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:80px;line-height:1.05;letter-spacing:-.02em;max-width:1100px;color:var(--ink)}
+.s-hook .quote .high{background:linear-gradient(90deg,var(--ember),var(--gold-bright));-webkit-background-clip:text;background-clip:text;color:transparent}
+.s-hook .flow{margin-top:70px;display:flex;align-items:center;gap:22px;z-index:3;position:relative;font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:700}
+.s-hook .flow .step{padding:12px 22px;border:1px solid var(--line-strong);border-radius:50px;color:var(--ink-soft);background:var(--surface)}
+.s-hook .flow .step.is-end{border-color:var(--ember);color:var(--ember);background:var(--ember-soft)}
+.s-hook .flow .arrow{color:var(--muted);font-size:18px}
+
+/* ============================================================ S3 — OBJETIVO ============================================================ */
+.s-goal .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px}
+.s-goal .triad{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;align-items:stretch;margin-top:30px}
+.s-goal .card{position:relative;padding:36px 32px;border:1px solid var(--line-strong);background:var(--surface);border-radius:18px;min-height:380px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.s-goal .card .badge{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.2em;font-weight:600;padding:6px 12px;border-radius:6px;display:inline-block;margin-bottom:24px;align-self:flex-start}
+.s-goal .card.c1 .badge{background:var(--ember-soft);color:var(--ember)}
+.s-goal .card.c2 .badge{background:var(--violet-soft);color:var(--violet)}
+.s-goal .card.c3 .badge{background:var(--gold-soft);color:var(--gold)}
+.s-goal .card h3{font-family:'Fraunces',serif;font-weight:700;font-size:40px;line-height:1.05;margin:0 0 16px;color:var(--ink)}
+.s-goal .card .desc{font-family:'Fraunces',serif;font-style:italic;font-size:19px;line-height:1.4;color:var(--ink-soft);flex:1}
+.s-goal .card .ico{font-size:34px;margin-bottom:18px}
+.s-goal .link{display:grid;place-items:center;color:var(--muted)}
+.s-goal .link svg{width:30px;height:30px}
+
+/* ============================================================ S4 — SINOPSE ============================================================ */
+.s-synopsis{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.s-synopsis .frame{height:620px}
+.s-synopsis .text{padding-right:20px}
+.s-synopsis .filmcard{display:inline-flex;gap:14px;align-items:center;padding:8px 14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:50px;margin-bottom:30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;box-shadow:var(--shadow-sm)}
+.s-synopsis .filmcard b{color:var(--gold)}
+.s-synopsis p{font-family:'Fraunces',serif;font-size:30px;line-height:1.35;color:var(--ink);margin:0 0 22px;font-weight:500}
+.s-synopsis p b{color:var(--gold);font-weight:700}
+.s-synopsis p.beat{color:var(--ember);font-style:italic}
+
+/* ============================================================ S5 — CONCEITO ============================================================ */
+.s-concept{display:flex;flex-direction:column;justify-content:center;height:100%}
+.s-concept .top{margin-bottom:6px}
+.s-concept .definition{position:relative;margin-top:18px;padding:54px 60px;border:1px solid var(--line-strong);border-radius:20px;background:var(--surface);max-width:1240px;box-shadow:var(--shadow)}
+.s-concept .definition .openq{position:absolute;top:-26px;left:40px;font-family:'Fraunces',serif;font-style:italic;font-size:160px;line-height:.4;color:rgba(226,89,11,.28)}
+.s-concept .definition p{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:48px;line-height:1.2;letter-spacing:-.01em;color:var(--ink);margin:0}
+.s-concept .definition p b{font-style:normal;font-weight:700;color:var(--ember)}
+.s-concept .sub{margin-top:30px;font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--ink-soft)}
+.s-concept .sub b{color:var(--ember);font-style:normal;font-weight:700}
+
+/* ============================================================ S6 — MAPA ============================================================ */
+.s-map{display:grid;grid-template-rows:auto 1fr;gap:20px}
+.s-map .top h2{margin-bottom:6px}
+.s-map .metro{position:relative;margin-top:60px;display:flex;flex-direction:column;justify-content:center}
+.s-map .labels{display:grid;grid-template-columns:repeat(6,1fr);margin-bottom:46px}
+.s-map .labels h4{font-family:'Fraunces',serif;font-weight:600;font-size:26px;letter-spacing:.005em;text-transform:none;text-align:center;margin:0;color:var(--ink);line-height:1.15}
+.s-map .track{position:relative;display:grid;grid-template-columns:repeat(6,1fr);align-items:center}
+.s-map .track::before{content:"";position:absolute;left:8.33%;right:8.33%;top:50%;transform:translateY(-50%);height:6px;border-radius:6px;background:linear-gradient(90deg,var(--violet-bright),var(--ember),var(--gold-bright));z-index:0}
+.s-map .dot{justify-self:center;position:relative;z-index:2;width:52px;height:52px;border-radius:50%;background:var(--surface);border:3px solid var(--ember);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ember);font-weight:700;box-shadow:0 0 0 7px var(--paper),var(--shadow-sm)}
+.s-map .dot:nth-child(1){border-color:var(--violet);color:var(--violet)}
+.s-map .dot:nth-child(2){border-color:var(--violet);color:var(--violet)}
+.s-map .dot:nth-child(5){border-color:var(--gold);color:var(--gold)}
+.s-map .dot:nth-child(6){border-color:var(--gold);background:var(--gold);color:#fff;box-shadow:0 0 0 7px var(--paper),var(--shadow-sm)}
+
+/* ============================================================ S7 — CLÁSSICA ============================================================ */
+.s-trad{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.s-trad .col{padding-top:6px}
+.s-trad .label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ember);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.s-trad .label::before{content:"";width:24px;height:1px;background:var(--ember)}
+.s-trad h2{font-size:60px;line-height:.98;margin-bottom:30px}
+.s-trad h2 i{color:var(--gold);font-style:italic;font-weight:700;font-family:'Fraunces',serif}
+.s-trad .panels{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.s-trad .panel{padding:26px 24px;border-radius:14px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm)}
+.s-trad .panel.yes{background:linear-gradient(180deg,var(--gold-soft),var(--surface));border-color:rgba(176,116,0,.35)}
+.s-trad .panel.no{background:linear-gradient(180deg,var(--violet-soft),var(--surface));border-color:rgba(109,40,217,.3)}
+.s-trad .panel h4{font-size:14px;letter-spacing:.14em;margin-bottom:16px}
+.s-trad .panel.yes h4{color:var(--gold)}
+.s-trad .panel.no h4{color:var(--violet)}
+.s-trad .panel ul{list-style:none;padding:0;margin:0}
+.s-trad .panel li{font-family:'Fraunces',serif;font-size:19px;line-height:1.4;color:var(--ink);padding:9px 0;border-bottom:1px dashed var(--line-strong);display:flex;align-items:center;gap:10px}
+.s-trad .panel li:last-child{border-bottom:none}
+.s-trad .panel li b{color:var(--ember);font-weight:700}
+.s-trad .scene .frame{height:420px}
+
+/* ============================================================ S8 — EQUAÇÃO ============================================================ */
+.s-eq{display:flex;flex-direction:column;justify-content:center;height:100%}
+.s-eq .label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ember);margin-bottom:14px}
+.s-eq .formula{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;margin:6px 0 44px}
+.s-eq .formula .var{padding:14px 22px;border-radius:14px;border:1px solid var(--line-strong);box-shadow:var(--shadow-sm)}
+.s-eq .formula .var.d{background:var(--ink);color:#fff;border-color:var(--ink)}
+.s-eq .formula .var.m{background:var(--ember-soft);color:var(--ember);border-color:rgba(226,89,11,.3)}
+.s-eq .formula .var.h{background:var(--violet-soft);color:var(--violet);border-color:rgba(109,40,217,.3)}
+.s-eq .formula .var.a{background:var(--green-soft);color:var(--green);border-color:rgba(14,138,107,.3)}
+.s-eq .formula .op{color:var(--muted)}
+.s-eq .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.s-eq .pcard{padding:26px 26px;border-radius:16px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm);border-top:4px solid}
+.s-eq .pcard.m{border-top-color:var(--ember)}
+.s-eq .pcard.h{border-top-color:var(--violet)}
+.s-eq .pcard.a{border-top-color:var(--green)}
+.s-eq .pcard .verb{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:30px;margin-bottom:6px}
+.s-eq .pcard.m .verb{color:var(--ember)}
+.s-eq .pcard.h .verb{color:var(--violet)}
+.s-eq .pcard.a .verb{color:var(--green)}
+.s-eq .pcard b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
+.s-eq .pcard p{margin:0;font-family:'Fraunces',serif;font-size:16px;line-height:1.4;color:var(--ink-soft)}
+.s-eq .note{margin-top:22px;font-family:'Fraunces',serif;font-style:italic;font-size:20px;color:var(--ink-soft)}
+.s-eq .note b{color:var(--ember);font-style:normal;font-weight:700}
+
+/* ============================================================ S9 — EQUIDADE / S10 — EXPECTATIVA ============================================================ */
+.s-proc{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.s-proc .left{padding-top:6px}
+.s-proc .label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ember);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.s-proc .label::before{content:"";width:24px;height:1px;background:var(--ember)}
+.s-proc h2{font-size:58px;line-height:.98;margin-bottom:18px}
+.s-proc h2 i{font-style:italic;color:var(--ember);font-family:'Fraunces',serif}
+.s-proc .lead{max-width:520px}
+.s-proc .punch{margin-top:26px;padding:20px 24px;border-left:3px solid var(--ember);background:var(--ember-soft);border-radius:0 12px 12px 0}
+.s-proc .punch p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--ink)}
+.s-proc .punch p b{font-style:normal;font-weight:700;color:var(--ember)}
+.s-proc .answers{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+/* equidade visual */
+.s-proc .vis{background:var(--surface);border:1px solid var(--line-strong);border-radius:20px;padding:38px 40px;box-shadow:var(--shadow)}
+.s-proc .ratio{margin-bottom:20px}
+.s-proc .ratio .rt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.s-proc .bar{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.s-proc .bar span{font-size:14px;font-weight:600;color:var(--ink-soft)}
+.s-proc .bar .track{height:18px;border-radius:9px;background:var(--paper-2);overflow:hidden}
+.s-proc .bar .track i{display:block;height:100%;border-radius:9px}
+.s-proc .bar.eff .track i{width:92%;background:linear-gradient(90deg,var(--violet-bright),var(--violet))}
+.s-proc .bar.rew .track i{width:24%;background:linear-gradient(90deg,var(--red),#a8323a)}
+.s-proc .scale-note{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px dashed var(--line-strong);font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:var(--ink)}
+.s-proc .scale-note .ic{font-size:30px}
+.s-proc .scale-note b{font-style:normal;font-weight:700;color:var(--red)}
+/* expectativa chain */
+.s-proc .chain{display:flex;flex-direction:column;gap:14px}
+.s-proc .clink{padding:20px 22px;border-radius:14px;border:1px solid var(--line-strong);background:var(--surface-2);position:relative}
+.s-proc .clink .ct{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:6px}
+.s-proc .clink .cf{font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:var(--ink);display:flex;align-items:center;gap:12px}
+.s-proc .clink .cf .arr{color:var(--ember)}
+.s-proc .clink em{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-top:4px}
+.s-proc .mform{margin-top:6px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--ink);background:var(--gold-soft);border-radius:10px;padding:12px}
+.s-proc .mform b{color:var(--ember)}
+
+/* ============================================================ S11 — MASLOW ============================================================ */
+.s-maslow{display:grid;grid-template-columns:1.1fr .85fr;gap:50px;align-items:start}
+.s-maslow .head{margin-bottom:18px}
+.s-maslow .pyramid{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.s-maslow .floor{position:relative;padding:16px 22px;border-radius:8px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm);transition:transform .3s}
+.s-maslow .floor:hover{transform:translateX(4px)}
+.s-maslow .floor .n{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor}
+.s-maslow .floor .lbl b{display:block;font-size:18px;font-weight:700;letter-spacing:.02em;color:currentColor}
+.s-maslow .floor .scene{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);max-width:200px;text-align:right;line-height:1.35}
+.s-maslow .floor.f1{color:var(--red);background:var(--red-soft);border-color:rgba(200,67,75,.3)}
+.s-maslow .floor.f2{margin-left:14px;color:var(--ember);background:var(--ember-soft);border-color:rgba(226,89,11,.3)}
+.s-maslow .floor.f3{margin-left:28px;color:var(--gold);background:var(--gold-soft);border-color:rgba(176,116,0,.3)}
+.s-maslow .floor.f4{margin-left:42px;color:var(--green);background:var(--green-soft);border-color:rgba(14,138,107,.3)}
+.s-maslow .floor.f5{margin-left:56px;color:var(--violet);background:var(--violet-soft);border-color:rgba(109,40,217,.35)}
+.s-maslow .aside{padding-top:50px}
+.s-maslow .aside .warn{padding:20px 22px;border-radius:14px;background:var(--red-soft);border:1px solid rgba(200,67,75,.3);margin-bottom:18px}
+.s-maslow .aside .warn h4{color:var(--red);font-size:12px;letter-spacing:.18em;margin-bottom:8px}
+.s-maslow .aside .warn p{margin:0;font-family:'Fraunces',serif;font-size:19px;line-height:1.4;color:var(--ink)}
+.s-maslow .aside .warn p b{color:var(--red);font-weight:700}
+.s-maslow .aside .dc{display:grid;gap:12px}
+.s-maslow .aside .dc-item{padding:16px 20px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm)}
+.s-maslow .aside .dc-item b{display:block;font-size:16px;font-weight:700;margin-bottom:4px}
+.s-maslow .aside .dc-item span{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--ink-soft)}
+.s-maslow .aside .dc-item.def{border-left:3px solid var(--ember)}
+.s-maslow .aside .dc-item.def b{color:var(--ember)}
+.s-maslow .aside .dc-item.gro{border-left:3px solid var(--violet)}
+.s-maslow .aside .dc-item.gro b{color:var(--violet)}
+
+/* ============================================================ CENA (full-bleed) ============================================================ */
+.s-scene{padding:0}
+.s-scene .frame-big{position:absolute;inset:0;border:none;border-radius:0;background:linear-gradient(135deg,#EFE9DC,#E4DCCB);display:flex;align-items:center;justify-content:center}
+.s-scene .frame-big .ph{width:64%;height:74%;border:2px dashed rgba(176,116,0,.45);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,rgba(176,116,0,.03) 0 16px,transparent 16px 32px);color:var(--gold)}
+.s-scene .frame-big .ph .frame-icon{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(176,116,0,.5);display:grid;place-items:center;margin-bottom:14px;font-size:18px}
+.s-scene .frame-big .ph b{color:var(--gold);font-size:13px;letter-spacing:.2em;margin-bottom:8px;text-transform:uppercase}
+.s-scene .frame-big .ph span{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:18px;text-align:center;max-width:62%;line-height:1.4}
+.s-scene .cap{position:absolute;left:64px;bottom:104px;max-width:860px;background:var(--surface);border:1px solid var(--line-strong);border-left:4px solid var(--ember);border-radius:0 16px 16px 0;padding:28px 34px;box-shadow:var(--shadow);z-index:3}
+.s-scene .cap .lab{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:12px}
+.s-scene .cap .q{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:46px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);margin:0}
+.s-scene .cap .q b{color:var(--ember);font-style:normal;font-weight:700}
+.s-scene .cap .tags{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.s-scene .cap .tags span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:6px 12px;border-radius:50px;background:var(--paper-2);color:var(--ink-soft)}
+
+/* ============================================================ S13 — APRENDIZAGEM ============================================================ */
+.s-learn{display:grid;grid-template-rows:auto 1fr auto;gap:24px}
+.s-learn .head{padding-top:6px}
+.s-learn .head .h2 i{font-style:italic;color:var(--ember);font-family:'Fraunces',serif}
+.s-learn .duo{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.s-learn .tile{padding:36px 34px;border-radius:18px;border:1px solid var(--line-strong);display:flex;flex-direction:column;justify-content:center;min-height:330px;box-shadow:var(--shadow-sm)}
+.s-learn .tile .sign{font-family:'Fraunces',serif;font-weight:700;font-size:90px;line-height:.8;margin-bottom:18px}
+.s-learn .tile h3{font-size:30px;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
+.s-learn .tile p{font-family:'Fraunces',serif;font-style:italic;font-size:20px;line-height:1.4;margin:0;color:var(--ink-soft)}
+.s-learn .tile.pos{background:linear-gradient(135deg,var(--green-soft),var(--surface));border-color:rgba(14,138,107,.35)}
+.s-learn .tile.pos .sign,.s-learn .tile.pos h3{color:var(--green)}
+.s-learn .tile.neg{background:linear-gradient(135deg,var(--red-soft),var(--surface));border-color:rgba(200,67,75,.35)}
+.s-learn .tile.neg .sign,.s-learn .tile.neg h3{color:var(--red)}
+.s-learn .closer{padding:20px 26px;background:var(--green-soft);border-left:3px solid var(--green);border-radius:0 12px 12px 0}
+.s-learn .closer p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-size:22px;line-height:1.4;color:var(--ink)}
+.s-learn .closer p b{font-style:normal;font-weight:700;color:var(--green)}
+
+/* ============================================================ S14 — CRONOLOGIA + PERGUNTAS ============================================================ */
+.s-chrono{display:grid;grid-template-rows:auto auto 1fr;gap:26px}
+.s-chrono .head{padding-top:6px}
+.s-chrono .head .h2 i{font-style:italic;color:var(--ember);font-family:'Fraunces',serif}
+.s-chrono .timeline{position:relative;display:grid;grid-template-columns:repeat(3,1fr);margin:14px 0 6px}
+.s-chrono .timeline::before{content:"";position:absolute;left:14%;right:14%;top:34px;height:3px;background:linear-gradient(90deg,var(--violet),var(--ember),var(--gold));border-radius:3px}
+.s-chrono .tnode{text-align:center;position:relative}
+.s-chrono .tnode .yr{display:inline-grid;place-items:center;width:70px;height:70px;border-radius:50%;background:var(--surface);border:3px solid var(--ember);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;color:var(--ember);position:relative;z-index:2;box-shadow:0 0 0 8px var(--paper),var(--shadow-sm)}
+.s-chrono .tnode:nth-child(1) .yr{border-color:var(--violet);color:var(--violet)}
+.s-chrono .tnode:nth-child(3) .yr{border-color:var(--gold);color:var(--gold)}
+.s-chrono .tnode b{display:block;margin-top:16px;font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:var(--ink)}
+.s-chrono .tnode span{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.s-chrono .tnode em{display:block;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);font-weight:600}
+.s-chrono .questions{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-content:center}
+.s-chrono .q{padding:26px 30px;border-radius:16px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm);position:relative;display:flex;flex-direction:column}
+.s-chrono .q .qmark{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:40px;line-height:.6;margin-bottom:14px}
+.s-chrono .q.q1{border-top:4px solid var(--violet)}.s-chrono .q.q1 .qmark{color:var(--violet)}
+.s-chrono .q.q2{border-top:4px solid var(--ember)}.s-chrono .q.q2 .qmark{color:var(--ember)}
+.s-chrono .q p{margin:0;font-family:'Fraunces',serif;font-size:21px;line-height:1.32;color:var(--ink);font-weight:500}
+.s-chrono .q .ans{margin-top:auto;padding-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.s-chrono .q.q1 .ans{color:var(--violet)}.s-chrono .q.q2 .ans{color:var(--ember)}
+
+/* ============================================================ S16 — ERC ============================================================ */
+.s-erc{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.s-erc .left{padding-top:10px}
+.s-erc .left .kicker{margin-bottom:14px}
+.s-erc .orbit{position:relative;height:560px;display:grid;place-items:center}
+.s-erc .orbit .center{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,var(--ember),#bd4a09);display:grid;place-items:center;text-align:center;font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:22px;color:#fff;box-shadow:0 10px 40px -8px rgba(226,89,11,.6);z-index:3;line-height:1.05;padding:0 20px}
+.s-erc .orbit .ring{position:absolute;inset:60px;border:1.5px dashed var(--line-strong);border-radius:50%;animation:spin 70s linear infinite}
+.s-erc .orbit .ring.r2{inset:120px;border-color:var(--line);animation-duration:90s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.s-erc .orbit .planet{position:absolute;width:170px;height:170px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px solid;background:var(--surface);box-shadow:var(--shadow-sm)}
+.s-erc .orbit .planet b{display:block;font-size:38px;font-family:'Fraunces',serif;font-weight:700;line-height:1}
+.s-erc .orbit .planet span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:4px}
+.s-erc .orbit .planet em{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:11.5px;line-height:1.3;margin-top:6px;color:var(--ink-soft);max-width:130px}
+.s-erc .orbit .p-e{top:30px;left:50%;transform:translateX(-50%);border-color:var(--red);color:var(--red)}
+.s-erc .orbit .p-r{bottom:90px;left:30px;border-color:var(--green);color:var(--green)}
+.s-erc .orbit .p-c{bottom:90px;right:30px;border-color:var(--violet);color:var(--violet)}
+.s-erc .scene-card{margin-top:24px;padding:22px 24px;border-radius:14px;background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--ember);box-shadow:var(--shadow-sm)}
+.s-erc .scene-card h4{font-size:11px;color:var(--ember);letter-spacing:.18em;margin-bottom:10px}
+.s-erc .scene-card p{margin:0;font-family:'Fraunces',serif;font-size:22px;line-height:1.35;color:var(--ink)}
+.s-erc .scene-card p b{color:var(--ember);font-weight:700}
+.s-erc .qref{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);font-weight:700}
+
+/* ============================================================ S18 — HERZBERG (visão tradicional × visão de Herzberg) ============================================================ */
+.s-herz{display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;align-content:start}
+.s-herz .head .h2{font-size:44px;margin-bottom:0}
+.s-herz .head .h2 .ital{font-style:italic;color:var(--gold)}
+.s-herz .vlabel{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.s-herz .vlabel::before{content:"";width:16px;height:16px;border-radius:4px;background:currentColor}
+.s-herz .trad .vlabel{color:#56525c}
+.s-herz .herz .vlabel{color:var(--ember)}
+/* eixo com seta dupla */
+.s-herz .axis{display:flex;align-items:center;gap:16px}
+.s-herz .axis .end{font-size:14px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.s-herz .darrow{position:relative;flex:1;height:28px;color:#56525c}
+.s-herz .darrow .bar{position:absolute;left:19px;right:19px;top:50%;transform:translateY(-50%);height:13px;background:currentColor}
+.s-herz .darrow::before,.s-herz .darrow::after{content:"";position:absolute;top:50%;transform:translateY(-50%);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.s-herz .darrow::before{left:0;border-right:19px solid}
+.s-herz .darrow::after{right:0;border-left:19px solid}
+.s-herz .darrow.ember{color:var(--ember)}
+.s-herz .darrow.violet{color:var(--violet)}
+/* visão de herzberg: dois eixos lado a lado */
+.s-herz .herz-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.s-herz .fbox{margin-top:14px;border:1px solid var(--line-strong);border-radius:12px;padding:16px 22px;box-shadow:var(--shadow-sm)}
+.s-herz .fbox .ft{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:19px;margin-bottom:8px}
+.s-herz .fbox ul{list-style:none;margin:0;padding:0}
+.s-herz .fbox li{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);padding:4px 0 4px 20px;position:relative;line-height:1.25}
+.s-herz .fbox li::before{content:"";position:absolute;left:3px;top:13px;width:6px;height:6px;border-radius:50%}
+.s-herz .hcol.mot .fbox{background:var(--ember-soft);border-color:rgba(226,89,11,.3)}
+.s-herz .hcol.mot .fbox .ft{color:var(--ember)}
+.s-herz .hcol.mot .fbox li::before{background:var(--ember)}
+.s-herz .hcol.hyg .fbox{background:var(--violet-soft);border-color:rgba(109,40,217,.3)}
+.s-herz .hcol.hyg .fbox .ft{color:var(--violet)}
+.s-herz .hcol.hyg .fbox li::before{background:var(--violet)}
+.s-herz .cap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:12px 22px;border-radius:12px;background:var(--gold-soft);border:1px solid rgba(176,116,0,.25)}
+.s-herz .cap p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.3;color:var(--ink)}
+.s-herz .cap p b{font-style:normal;font-weight:700;color:var(--gold)}
+.s-herz .cap .qref{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);font-weight:700;white-space:nowrap}
+
+/* ============================================================ S19 — CAP 5 ============================================================ */
+.s-perf{display:grid;grid-template-rows:auto auto 1fr;gap:28px}
+.s-perf .head .h2 i{font-style:italic;color:var(--gold);font-family:'Fraunces',serif}
+.s-perf .bar5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.s-perf .pill{padding:20px 18px;border-radius:12px;background:var(--surface);border:1px solid var(--line-strong);text-align:center;box-shadow:var(--shadow-sm)}
+.s-perf .pill .num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ember);font-weight:700;letter-spacing:.16em;margin-bottom:10px}
+.s-perf .pill b{display:block;font-size:19px;font-weight:700;letter-spacing:-.005em;color:var(--ink)}
+.s-perf .scene-box{padding:34px;border-radius:16px;background:var(--surface);border:1px solid var(--line-strong);border-left:4px solid var(--ember);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:center}
+.s-perf .scene-box h4{font-size:11px;letter-spacing:.2em;color:var(--ember);margin-bottom:16px}
+.s-perf .scene-box h3{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:38px;line-height:1.2;margin:0;color:var(--ink)}
+
+/* ============================================================ S20 — ADS ============================================================ */
+.s-ads{display:grid;grid-template-rows:auto 1fr;gap:30px}
+.s-ads .h2 i{font-style:italic;color:var(--gold);font-family:'Fraunces',serif}
+.s-ads .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.s-ads .card{padding:28px 26px;border-radius:14px;border:1px solid var(--line-strong);background:var(--surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px}
+.s-ads .card .ic{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-bottom:6px;background:var(--ember-soft);color:var(--ember)}
+.s-ads .card h3{font-size:24px;font-weight:700;letter-spacing:-.005em;margin:0;color:var(--ink)}
+.s-ads .card .link{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-strong);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--gold);font-weight:600;text-transform:uppercase}
+.s-ads .card.alt .ic{background:var(--violet-soft);color:var(--violet)}
+.s-ads .card.alt2 .ic{background:var(--gold-soft);color:var(--gold)}
+
+/* ============================================================ S21 — SÍNTESE ============================================================ */
+.s-syn .h2 i{font-style:italic;color:var(--gold);font-family:'Fraunces',serif}
+.s-syn .table{margin-top:20px;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm)}
+.s-syn .row{display:grid;grid-template-columns:190px 1.2fr 1fr 1.4fr;border-bottom:1px solid var(--line)}
+.s-syn .row:last-child{border-bottom:none}
+.s-syn .row.head{background:var(--ember-soft)}
+.s-syn .row.head .cell{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--ember);text-transform:uppercase;font-weight:700;padding:12px 20px}
+.s-syn .row .cell{padding:13px 20px;border-right:1px solid var(--line)}
+.s-syn .row .cell:last-child{border-right:none}
+.s-syn .row .cell.theory{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--ink)}
+.s-syn .row .cell.theory span{display:block;font-size:10px;letter-spacing:.12em;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-top:2px;font-weight:500}
+.s-syn .row .cell.idea{font-family:'Fraunces',serif;font-style:italic;font-size:15px;line-height:1.3;color:var(--ink-soft)}
+.s-syn .row .cell.scene{font-size:13px;color:var(--ink-soft);line-height:1.3}
+.s-syn .row .cell.scene b{color:var(--gold);font-weight:600;display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px;font-family:'JetBrains Mono',monospace}
+.s-syn .row .cell.learn{font-family:'Fraunces',serif;font-size:14px;line-height:1.3;color:var(--ink)}
+.s-syn .row .cell.learn b{color:var(--ember);font-weight:700}
+
+/* ============================================================ S22 — CONCLUSÃO ============================================================ */
+.s-end{background:radial-gradient(ellipse at 72% 28%,rgba(226,89,11,.12),transparent 55%),radial-gradient(ellipse at 18% 82%,rgba(109,40,217,.10),transparent 50%),linear-gradient(180deg,#FBF8F1,#F0EADD);display:flex;flex-direction:column;justify-content:center}
+.s-end .kicker{margin-bottom:30px}
+.s-end h1{font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:80px;line-height:1.04;letter-spacing:-.02em;max-width:1320px;color:var(--ink);margin:0}
+.s-end h1 b{font-style:normal;font-weight:700;background:linear-gradient(90deg,var(--ember),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.s-end .sig{margin-top:56px;padding-top:30px;border-top:1px solid var(--line-strong);display:flex;justify-content:space-between;align-items:flex-end}
+.s-end .sig .credits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:880px;flex:1}
+.s-end .sig .credits div b{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:4px}
+.s-end .sig .credits div span{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink)}
+.s-end .sig .endmark{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:700;text-align:right}
+.s-end .sig .endmark b{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:38px;color:var(--ink);text-transform:none;letter-spacing:-.01em;font-weight:500;margin-bottom:4px}
+
+/* ============================================================ HUD ============================================================ */
+.hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;padding:5px 9px;background:rgba(255,255,255,.85);border:1px solid var(--line-strong);border-radius:50px;backdrop-filter:blur(10px);box-shadow:var(--shadow-sm);z-index:99;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);letter-spacing:.1em;opacity:.5;transition:opacity .25s ease,transform .25s ease}
+.hud:hover{opacity:1}
+.hud button{width:22px;height:22px;border-radius:50%;border:none;background:var(--paper-2);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s;font-size:12px}
+.hud button:hover{background:var(--ember-soft)}
+.hud .pos{padding:0 5px;font-weight:600}
+.hud .pos b{color:var(--ember)}
+.hud .key{padding:2px 6px;border-radius:4px;background:var(--paper-2);font-size:10px;cursor:pointer;transition:background .2s}
+.hud .key:hover{background:var(--ember-soft)}
+body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(14px)}
+</style>
+</head>
+<body class="notes-hidden">
+<div class="stage">
+  <div class="deck" id="deck">
+
+<!-- ===== S1 — CAPA ===== -->
+<section class="slide s-cover is-active" data-slide="1">
+  <div class="filmtag">À PROCURA DA FELICIDADE · 2006 · GABRIELE MUCCINO</div>
+  <div class="watermark">01</div>
+  <div class="city"></div>
+  <div class="cover-grid">
+    <div class="cover-title">
+      <div class="meta-line"><span>UFPR · TADS</span><span class="sep"></span><span>Comportamento Organizacional</span><span class="sep"></span><span>2026</span></div>
+      <h1 class="h1">A Motivação<br/><span class="ital">nas Organizações.</span></h1>
+      <p class="cover-sub">Chris Gardner como <b>estudo de caso</b>.</p>
+      <div class="group">
+        <div><b>01</b><span>Samuel Natel</span></div>
+        <div><b>02</b><span>João Guilherme Pivatto</span></div>
+        <div><b>03</b><span>João Victor D. N. Silva</span></div>
+        <div><b>04</b><span>Gabriel C. de Albuquerque</span></div>
+      </div>
+    </div>
+    <div class="frame cover-frame"><div class="frame-icon">▶</div><div class="frame-label">Imagem · Capa</div><div class="frame-hint">Frame icônico do filme — Chris e o filho, ou a silhueta de São Francisco.</div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">01 / 22</span><span>· Abertura</span></div><div>→ avançar · F tela cheia</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body">
+      <p>Boa noite. Seminário de Comportamento Organizacional sobre <em>A Motivação nas Organizações</em>.</p>
+      <p>Filme escolhido: <em>À Procura da Felicidade</em>. Não é uma história de superação — é estudo de caso para ler, na prática, o Capítulo 4 e o Capítulo 5 (Griffin & Moorhead).</p>
+      <p>Equipe: Samuel, João Guilherme, João Victor e eu, Gabriel.</p>
+    </div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S2 — GANCHO ===== -->
+<section class="slide s-hook" data-slide="2">
+  <p class="quote">O que <span class="high">move</span> alguém quando tudo parece impedir?</p>
+  <div class="flow"><span class="step">Necessidade</span><span class="arrow">→</span><span class="step">Comportamento</span><span class="arrow">→</span><span class="step">Desempenho</span><span class="arrow">→</span><span class="step is-end">Reconhecimento</span></div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">02 / 22</span><span>· Gancho</span></div><div>Pergunta de partida</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 45s</span></div>
+    <div class="notes__body">
+      <p>Essa pergunta guia tudo. Não é "querer" em abstrato — é o que faz alguém escolher um comportamento difícil, repetidamente, em vez de desistir.</p>
+      <p>Necessidade → comportamento → desempenho → reconhecimento: o ciclo motivacional. É o que vamos ver com Chris Gardner.</p>
+    </div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S3 — OBJETIVO ===== -->
+<section class="slide s-goal" data-slide="3">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Objetivo</span></div><div>Cap. 4 + Cap. 5</div></div>
+  <div class="watermark">03</div>
+  <div class="head"><div><h2 class="h2">Três planos.<br/>Uma leitura.</h2></div></div>
+  <div class="triad">
+    <div class="card c1"><span class="badge">01</span><div class="ico">🎬</div><h3>Filme</h3><p class="desc">Cenas como evidência.</p></div>
+    <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="card c2"><span class="badge">02</span><div class="ico">📐</div><h3>Teoria</h3><p class="desc">Cap. 4 e Cap. 5.</p></div>
+    <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="card c3"><span class="badge">03</span><div class="ico">{ }</div><h3>ADS</h3><p class="desc">Aplicação no mercado.</p></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">03 / 22</span><span>· Objetivo</span></div><div>UFPR · TADS</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body"><p>Três planos sobrepostos. <em>Filme</em>: cada cena é evidência observável. <em>Teoria</em>: lemos a cena com os conceitos do Cap. 4 e 5. <em>ADS</em>: trazemos para o mercado de tecnologia. Motivação não é tema só de RH.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S4 — SINOPSE ===== -->
+<section class="slide s-synopsis" data-slide="4">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Sinopse</span></div><div>117 min · Drama · 2006</div></div>
+  <div class="watermark">04</div>
+  <div class="frame"><div class="frame-icon">▶</div><div class="frame-label">Cena · Chris e o filho na rua</div><div class="frame-hint">Chris segurando a mão do filho — caminhando pela cidade.</div></div>
+  <div class="text">
+    <div class="filmcard"><span>Baseado em fatos reais</span> · <b>Chris Gardner</b></div>
+    <p>São Francisco, anos 80. Um vendedor falido. Um filho pequeno.</p>
+    <p>Nenhuma rede. Um estágio <b>não remunerado</b>.</p>
+    <p class="beat">Vinte candidatos. Uma vaga.</p>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">04 / 22</span><span>· Sinopse</span></div><div>Will Smith · Jaden Smith</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 75s</span></div>
+    <div class="notes__body"><p>Final dos anos 80, São Francisco. Chris apostou tudo em scanners médicos que não vendem. A renda cai, a esposa vai embora, ele perde a casa — e nesse colapso consegue um estágio não remunerado numa corretora.</p><p>Não vamos contar o filme inteiro: vamos olhar para <em>seis cenas</em> em que a motivação aparece como motor das escolhas.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S5 — CONCEITO ===== -->
+<section class="slide s-concept" data-slide="5">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Cap. 4 · Conceito</span></div><div>Definição operacional</div></div>
+  <div class="watermark">05</div>
+  <div class="top"><h2 class="h2">Motivação <i style="color:var(--ember);font-family:'Fraunces',serif">é escolha</i>.</h2></div>
+  <div class="definition"><div class="openq">"</div><p>Forças que levam alguém a um <b>comportamento</b>, em vez de outro.</p></div>
+  <p class="sub">Chris escolhe, o tempo todo, o caminho <b>mais difícil</b>. A pergunta é: por quê?</p>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">05 / 22</span><span>· Conceito</span></div><div>Griffin & Moorhead · Cap. 4</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body"><p>Motivação, na literatura, não é "estar empolgado". É o conjunto de forças que leva alguém a <em>escolher</em> um comportamento em vez de outro.</p><p>Chris escolhe sempre o caminho mais difícil. A pergunta "por quê?" é o que o Samuel vai começar a responder. Passo a palavra a ele.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S6 — MAPA ===== -->
+<section class="slide s-map" data-slide="6">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Mapa da jornada</span></div><div>Eixo da apresentação</div></div>
+  <div class="watermark">06</div>
+  <div class="top"><h2 class="h2">Da rua à <i style="color:var(--gold);font-style:italic;font-family:'Fraunces',serif">porta</i>.</h2></div>
+  <div class="metro">
+    <div class="labels"><h4>Necessidade</h4><h4>Crise</h4><h4>Oportunidade</h4><h4>Esforço</h4><h4>Desempenho</h4><h4>Reconhecimento</h4></div>
+    <div class="track"><div class="dot">01</div><div class="dot">02</div><div class="dot">03</div><div class="dot">04</div><div class="dot">05</div><div class="dot">06</div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">06 / 22</span><span>· Mapa</span></div><div>Referência durante toda a apresentação</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body"><p>A partir daqui eu assumo. Esse mapa é o eixo da apresentação — como uma linha de metrô: seis estações que formam o ciclo motivacional completo.</p><p>Necessidade → crise → oportunidade → esforço → desempenho → reconhecimento. Toda teoria que vem agora se encaixa em algum ponto desse trajeto.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S7 — CLÁSSICA ===== -->
+<section class="slide s-trad" data-slide="7">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Abordagem Clássica</span></div><div>Frederick Taylor · Homo Economicus</div></div>
+  <div class="watermark">07</div>
+  <div class="col">
+    <div class="label">Teoria 01 · Samuel</div>
+    <h2 class="h2">O dinheiro <i>explica.</i><br/>Não explica <i>tudo.</i></h2>
+    <div class="panels">
+      <div class="panel yes"><h4>↑ Explica</h4><ul><li>Aluguel atrasado</li><li>Vender o scanner</li><li>Renda imediata</li></ul></div>
+      <div class="panel no"><h4>↓ Não explica</h4><ul><li>Estágio <b>sem salário</b></li><li>Estudar de madrugada</li><li>Recusar atalhos</li></ul></div>
+    </div>
+  </div>
+  <div class="col scene"><div class="frame"><div class="frame-icon">▶</div><div class="frame-label">Cena · O scanner médico</div><div class="frame-hint">Chris tentando vender. Recusas sucessivas.</div></div></div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">07 / 22</span><span>· Clássica</span></div><div>Limite · visão econômica</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>A abordagem clássica, da Administração Científica de Taylor, parte do <em>Homo Economicus</em>: o trabalhador é movido pelo salário, e o trabalho é visto como desagradável, feito por subsistência (Griffin & Moorhead, 2015).</p><p>No início do filme isso funciona: Chris foca em vender os scanners para pagar aluguel, comida, transporte. Mas o filme mostra o limite — ele aceita um estágio <em>sem salário</em>, estuda de madrugada, recusa atalhos. O dinheiro explica a urgência, não a persistência.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S8 — EQUAÇÃO ===== -->
+<section class="slide s-eq" data-slide="8">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>A Equação da Motivação</span></div><div>Cap. 4 · Desempenho</div></div>
+  <div class="watermark">08</div>
+  <div class="label">Teoria 02 · Samuel</div>
+  <div class="formula">
+    <span class="var d">Desempenho</span><span class="op">=</span><span class="var m">Motivação</span><span class="op">+</span><span class="var h">Habilidade</span><span class="op">+</span><span class="var a">Ambiente</span>
+  </div>
+  <div class="pillars">
+    <div class="pcard m"><div class="verb">Querer.</div><b>Motivação</b><p>Chris quer mudar a realidade da família. O motor existe.</p></div>
+    <div class="pcard h"><div class="verb">Saber.</div><b>Habilidade</b><p>Precisa de comunicação, raciocínio rápido e negociação — sob pressão.</p></div>
+    <div class="pcard a"><div class="verb">Ter como.</div><b>Ambiente</b><p>A corretora dá o ecossistema, o aprendizado e as ferramentas.</p></div>
+  </div>
+  <p class="note">Falta uma das três, o desempenho cai. <b>Motivação sozinha não basta.</b></p>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">08 / 22</span><span>· Equação</span></div><div>Querer · Saber · Ter como</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>A Equação do Desempenho mostra que motivação isolada não garante resultado: <em>Desempenho = Motivação + Habilidade + Ambiente</em>.</p><p>Em Chris: motivação altíssima (transformar a vida do filho). Mas precisa desenvolver <em>habilidade</em> — comunicação, raciocínio rápido, negociação — sob pressão. E o <em>ambiente</em>, a corretora, é o catalisador: oferece aprendizado e ferramentas de mercado. Só com os três o esforço vira produtividade.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S9 — EQUIDADE ===== -->
+<section class="slide s-proc" data-slide="9">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria da Equidade</span></div><div>J. Stacy Adams · Teoria de processo</div></div>
+  <div class="watermark">09</div>
+  <div class="left">
+    <div class="label">Teoria 03 · Samuel</div>
+    <h2>Ele <i>compara.</i></h2>
+    <p class="lead">As pessoas avaliam a justiça da relação entre o que <b>entregam</b> (esforço) e o que <b>recebem</b> (recompensa) — e comparam com os outros.</p>
+    <div class="punch"><p>Chris vê uma <b>injustiça nítida</b> diante dos corretores seniores — e mesmo assim continua.</p></div>
+    <div class="answers">↳ mas por que continua? Resposta no próximo slide.</div>
+  </div>
+  <div class="vis">
+    <div class="ratio">
+      <div class="rt">A relação que ele percebe</div>
+      <div class="bar eff"><span>Esforço dele</span><div class="track"><i></i></div></div>
+      <div class="bar rew"><span>Recompensa</span><div class="track"><i></i></div></div>
+    </div>
+    <div class="scale-note"><span class="ic">⚖</span><div>Dedicação hercúlea, condições precárias. <b>Iniquidade percebida.</b></div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">09 / 22</span><span>· Equidade</span></div><div>Insumos × resultados · comparação social</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>Entramos nas teorias de processo, que explicam como a cognição direciona e sustenta a energia (Griffin & Moorhead, 2015).</p><p><em>Equidade</em>, de Stacy Adams: comparamos a proporção entre o que entregamos (insumos/esforço) e o que recebemos (resultados/recompensa), inclusive com terceiros. Chris percebe iniquidade clara — dedicação extrema, condições precárias — contra a opulência dos seniores ao redor. A pergunta que fica é: por que ele não desiste? É o que a Teoria da Expectativa responde.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S10 — EXPECTATIVA ===== -->
+<section class="slide s-proc" data-slide="10">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria da Expectativa</span></div><div>Victor Vroom · Teoria de processo</div></div>
+  <div class="watermark">10</div>
+  <div class="left">
+    <div class="label">Teoria 04 · Samuel</div>
+    <h2>Ele <i>aposta</i> no futuro.</h2>
+    <p class="lead">A motivação depende de quanto se <b>deseja</b> a recompensa e da <b>probabilidade percebida</b> de alcançá-la.</p>
+    <div class="punch"><p>Chris persiste porque acredita que o esforço <b>leva à vaga</b> — e dá valor imenso a essa mudança de vida.</p></div>
+  </div>
+  <div class="vis" style="background:transparent;border:none;box-shadow:none;padding:0">
+    <div class="chain">
+      <div class="clink"><div class="ct">Expectância</div><div class="cf">Esforço <span class="arr">→</span> Desempenho</div><em>"Meu esforço gera resultado?"</em></div>
+      <div class="clink"><div class="ct">Instrumentalidade</div><div class="cf">Desempenho <span class="arr">→</span> Recompensa</div><em>"O resultado me dá a vaga?"</em></div>
+      <div class="clink"><div class="ct">Valência</div><div class="cf">Valor da recompensa</div><em>"Quanto eu quero isso?" — para Chris, tudo.</em></div>
+    </div>
+    <div class="mform">Motivação = Valência <b>×</b> Expectância <b>×</b> Instrumentalidade</div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">10 / 22</span><span>· Expectativa</span></div><div>Motivação é dinâmica, não estática</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 2min30s</span></div>
+    <div class="notes__body"><p><em>Expectativa</em>, de Vroom: a motivação combina três coisas — expectância (esforço gera desempenho), instrumentalidade (desempenho gera recompensa) e valência (o valor que dou à recompensa).</p><p>Chris tem alta expectância e instrumentalidade — acredita que o estágio vira contratação — e valência máxima: mudar de vida vale tudo. Isso prova que motivação não é cálculo estático, é dinâmica e emocional, ligada à capacidade de projetar o futuro. Passo ao João Guilherme.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S11 — MASLOW ===== -->
+<section class="slide s-maslow" data-slide="11">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Hierarquia de Necessidades</span></div><div>Abraham Maslow · 1943</div></div>
+  <div class="watermark">11</div>
+  <div>
+    <div class="head"><h2 class="h2">Maslow, <i style="color:var(--ember);font-style:italic;font-family:'Fraunces',serif">como um prédio</i>.</h2></div>
+    <div class="pyramid">
+      <div class="floor f1"><div class="n">01</div><div class="lbl"><b>Fisiológicas</b></div><div class="scene">Banheiro da estação</div></div>
+      <div class="floor f2"><div class="n">02</div><div class="lbl"><b>Segurança</b></div><div class="scene">Despejo</div></div>
+      <div class="floor f3"><div class="n">03</div><div class="lbl"><b>Sociais / Afetivas</b></div><div class="scene">O filho</div></div>
+      <div class="floor f4"><div class="n">04</div><div class="lbl"><b>Estima</b></div><div class="scene">Entrevista de terno</div></div>
+      <div class="floor f5"><div class="n">05</div><div class="lbl"><b>Autorrealização</b></div><div class="scene">A contratação</div></div>
+    </div>
+  </div>
+  <div class="aside">
+    <div class="warn"><h4>⚠ NÃO É ESCADA</h4><p>As necessidades aparecem <b>juntas</b>.</p></div>
+    <div class="dc">
+      <div class="dc-item def"><b>Deficiência · níveis 1–3</b><span>Surgem pela falta.</span></div>
+      <div class="dc-item gro"><b>Crescimento · níveis 4–5</b><span>Nunca se esgotam.</span></div>
+    </div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">11 / 22</span><span>· Maslow</span></div><div>Deficiência × Crescimento</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 3min</span></div>
+    <div class="notes__body"><p>Maslow: cinco níveis. No início, Chris está preso nas <em>fisiológicas e de segurança</em> — vaga no abrigo, comida, fugir do despejo. <em>(pausa)</em> O que o impede de desistir são as <em>sociais</em> — o amor pelo filho. No estágio viram <em>estima</em> (respeito, status, o terno). E a apoteose é a <em>autorrealização</em> na cena final.</p><p>Diferenciação do livro: níveis 1–3 são de <em>deficiência</em> (surgem pela falta); 4–5 são de <em>crescimento</em> (nunca se esgotam). E atenção: não é escada — no filme as necessidades aparecem ao mesmo tempo.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S12 — CENA · BANHEIRO ===== -->
+<section class="slide s-scene" data-slide="12">
+  <div class="frame-big"><div class="ph"><div class="frame-icon">▶</div><b>Cena · Banheiro da estação BART</b><span>Chris e o filho passam a noite trancados no banheiro de uma estação de metrô.</span></div></div>
+  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena-evidência</span></div><div>Fisiológicas + segurança</div></div>
+  <div class="cap">
+    <div class="lab">Cena · níveis 1 e 2</div>
+    <p class="q">Quando o básico está ameaçado,<br/>ele <b>domina tudo</b>.</p>
+    <div class="tags"><span>Fisiológicas</span><span>Segurança</span><span>Não é "falta de esforço"</span></div>
+  </div>
+  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">12 / 22</span><span>· Cena</span></div><div>Maslow aplicado</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 90s</span></div>
+    <div class="notes__body"><p>Cena-evidência perfeita: sem lugar para dormir, Chris e o filho passam a noite trancados no banheiro de uma estação.</p><p>Quando o fisiológico e a segurança estão ameaçados, eles <em>dominam</em> a atenção — não dá para focar em desempenho ou planejamento. Nas organizações: funcionário em insegurança financeira ou de saúde não entrega o mesmo. Não é "falta de motivação", é estrutura humana.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S13 — APRENDIZAGEM ===== -->
+<section class="slide s-learn" data-slide="13">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria da Aprendizagem</span></div><div>Condicionamento operante</div></div>
+  <div class="watermark">13</div>
+  <div class="head"><h2 class="h2">O ambiente <i>ensina</i>.</h2></div>
+  <div class="duo">
+    <div class="tile pos"><div class="sign">+</div><h3>Reforço positivo</h3><p>Bônus, elogio, a contratação → o comportamento se repete.</p></div>
+    <div class="tile neg"><div class="sign">−</div><h3>Punição</h3><p>Feedback negativo → o comportamento é cortado.</p></div>
+  </div>
+  <div class="closer"><p>A <b>contratação</b> do Chris é o maior reforço positivo do filme.</p></div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">13 / 22</span><span>· Aprendizagem</span></div><div>Consequências moldam comportamento</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 90s</span></div>
+    <div class="notes__body"><p>Teoria Baseada na Aprendizagem, do condicionamento operante: o comportamento no trabalho é guiado pelas <em>consequências</em> do passado.</p><p><em>Reforço positivo</em> — bônus, elogio, a contratação — faz repetir a alta performance. <em>Punição</em> e feedback negativo cortam comportamentos inadequados. Sabendo como os estímulos agem, o João Victor mostra agora como Alderfer e Herzberg refinam essa engrenagem. João, a palavra é sua.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S14 — CRONOLOGIA + PERGUNTAS (João Victor SLIDE 1) ===== -->
+<section class="slide s-chrono" data-slide="14">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>O que veio depois de Maslow</span></div><div>ERC · Dupla Estrutura</div></div>
+  <div class="watermark">14</div>
+  <div class="head"><h2 class="h2">As teorias que vieram <i>depois</i>.</h2></div>
+  <div class="timeline">
+    <div class="tnode"><span class="yr">1943</span><b>Maslow</b><span>Hierarquia de Necessidades</span></div>
+    <div class="tnode"><span class="yr">1959</span><b>Herzberg</b><span>Dupla Estrutura</span><em>responde →</em></div>
+    <div class="tnode"><span class="yr">1969</span><b>Alderfer</b><span>Teoria ERC</span><em>responde →</em></div>
+  </div>
+  <div class="questions">
+    <div class="q q1"><div class="qmark">?</div><p>Um indivíduo estagnado em um nível de necessidade está privado de se motivar por um nível superior?</p><div class="ans">↳ ERC responde</div></div>
+    <div class="q q2"><div class="qmark">?</div><p>É possível um funcionário estar insatisfeito e motivado ao mesmo tempo?</p><div class="ans">↳ Herzberg responde</div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">14 / 22</span><span>· Depois de Maslow</span></div><div>Duas perguntas, duas teorias</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>Agora eu assumo. Maslow é de 1943. A Dupla Estrutura de Herzberg (1959) e a ERC de Alderfer (1969) vêm <em>depois</em> — como respostas ao que Maslow deixou em aberto.</p><p>Deixo duas perguntas no ar. Uma: alguém preso num nível de necessidade fica privado de se motivar por um nível superior? Duas: dá para estar insatisfeito e motivado ao mesmo tempo? A primeira a ERC responde; a segunda, Herzberg. Vamos olhar a cena que prepara a ERC.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S15 — CENA 1 · ESTÁGIO ===== -->
+<section class="slide s-scene" data-slide="15">
+  <div class="frame-big"><div class="ph"><div class="frame-icon">▶</div><b>Cena 1 · O estágio não remunerado</b><span>Chris aceita a vaga sem salário, com o filho ao lado, vislumbrando uma carreira possível.</span></div></div>
+  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Cena que prepara a ERC</span></div><div>Existência · Relacionamento · Crescimento</div></div>
+  <div class="cap">
+    <div class="lab">Cena 1 · evidência da ERC</div>
+    <p class="q">Uma decisão. <b>Três necessidades</b> ao mesmo tempo.</p>
+    <div class="tags"><span>Sobreviver</span><span>Proteger o filho</span><span>Crescer</span></div>
+  </div>
+  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">15 / 22</span><span>· Cena 1</span></div><div>Sequência · Slide → Cena → Slide</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body"><p>Olhem essa cena: Chris aceita um estágio sem salário. À primeira vista é irracional. Mas se vocês observarem, há três forças na mesma decisão — sobreviver, proteger o filho e construir uma carreira.</p><p>Maslow teria dificuldade de explicar tantas necessidades ativas ao mesmo tempo. A teoria que dá conta disso é a próxima.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S16 — ERC (João Victor SLIDE 2) ===== -->
+<section class="slide s-erc" data-slide="16">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria ERC</span></div><div>Clayton Alderfer · 1969</div></div>
+  <div class="watermark">16</div>
+  <div class="left">
+    <p class="kicker">Responde à Pergunta 1</p>
+    <h2 class="h2">Três forças.<br/><i style="color:var(--ember);font-style:italic;font-family:'Fraunces',serif">Ao mesmo tempo.</i></h2>
+    <div class="scene-card"><h4>CENA · ESTÁGIO NÃO REMUNERADO</h4><p>As <b>três</b> aparecem na mesma decisão.</p></div>
+    <div class="qref">↳ Não: necessidades operam em paralelo (e há frustração-retrocesso)</div>
+  </div>
+  <div class="orbit">
+    <div class="ring"></div><div class="ring r2"></div>
+    <div class="planet p-e"><b>E</b><span>Existência</span><em>Renda, moradia</em></div>
+    <div class="planet p-r"><b>R</b><span>Relacionamento</span><em>O filho, vínculo</em></div>
+    <div class="planet p-c"><b>C</b><span>Crescimento</span><em>Carreira, futuro</em></div>
+    <div class="center">Chris<br/>Gardner</div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">16 / 22</span><span>· ERC</span></div><div>Simultaneidade · frustração-retrocesso</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>A ERC, de Alderfer, reorganiza Maslow em três blocos: Existência, Relacionamento, Crescimento. E responde a Pergunta 1: <em>não</em> — ninguém fica privado de um nível superior. As necessidades operam em paralelo, e há o <em>frustração-retrocesso</em> (frustrado no crescimento, volto a reforçar existência ou relacionamento).</p><p>A cena do estágio prova: ele decide sentindo as três ao mesmo tempo — sobreviver (E), proteger o filho (R), crescer (C). Agora, a cena que prepara a próxima teoria.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S17 — CENA 2 · CONTRATAÇÃO ===== -->
+<section class="slide s-scene" data-slide="17">
+  <div class="frame-big"><div class="ph"><div class="frame-icon">▶</div><b>Cena 2 · A contratação</b><span>Cena final — Chris recebe a notícia da vaga. Rosto contido, lágrimas, mão tremendo.</span></div></div>
+  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Cena que prepara a Herzberg</span></div><div>Reconhecimento · realização</div></div>
+  <div class="cap">
+    <div class="lab">Cena 2 · evidência da Dupla Estrutura</div>
+    <p class="q">"Era <b>esse</b> momento, Chris."</p>
+    <div class="tags"><span>Reconhecimento</span><span>Realização</span><span>Estabilidade enfim</span></div>
+  </div>
+  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">17 / 22</span><span>· Cena 2</span></div><div>Sequência · Slide → Cena → Slide</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 60s</span></div>
+    <div class="notes__body"><p>A cena que fecha o filme. Reparem que o que emociona não é o dinheiro em si — é o <em>reconhecimento</em> e a <em>realização</em>. E é também o maior reforço positivo do filme, como o João Guilherme falou.</p><p>Essa diferença — entre o que estabiliza e o que de fato motiva — é exatamente o que a Teoria da Dupla Estrutura explica.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S18 — HERZBERG + GRÁFICO (João Victor SLIDE 3) ===== -->
+<section class="slide s-herz" data-slide="18">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria da Dupla Estrutura</span></div><div>Frederick Herzberg · 1959</div></div>
+  <div class="watermark">18</div>
+  <div class="head"><h2 class="h2">O que <span class="ital">evita</span> ≠ o que <span class="ital">motiva</span>.</h2></div>
+  <div class="trad">
+    <div class="vlabel">Visão tradicional</div>
+    <div class="axis">
+      <span class="end">Satisfação</span>
+      <div class="darrow gray"><div class="bar"></div></div>
+      <span class="end">Insatisfação</span>
+    </div>
+  </div>
+  <div class="herz">
+    <div class="vlabel">Visão de Herzberg · dois eixos independentes</div>
+    <div class="herz-grid">
+      <div class="hcol mot">
+        <div class="axis">
+          <span class="end">Satisfação</span>
+          <div class="darrow ember"><div class="bar"></div></div>
+          <span class="end">Nenhuma satisfação</span>
+        </div>
+        <div class="fbox">
+          <div class="ft">Fatores motivacionais</div>
+          <ul>
+            <li>Realização</li>
+            <li>Reconhecimento</li>
+            <li>O trabalho em si</li>
+            <li>Responsabilidade</li>
+            <li>Promoção e crescimento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hcol hyg">
+        <div class="axis">
+          <span class="end">Insatisfação</span>
+          <div class="darrow violet"><div class="bar"></div></div>
+          <span class="end">Nenhuma insatisfação</span>
+        </div>
+        <div class="fbox">
+          <div class="ft">Fatores higiênicos</div>
+          <ul>
+            <li>Competência da supervisão</li>
+            <li>Condições de trabalho</li>
+            <li>Relacionamentos interpessoais</li>
+            <li>Remuneração e segurança no emprego</li>
+            <li>Políticas administrativas da empresa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <p>No estágio: higiênicos <b>quase ausentes</b>, motivacionais <b>presentes</b> — e isso sustenta o esforço.</p>
+    <span class="qref">↳ Pergunta 2: sim — são eixos distintos</span>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">18 / 22</span><span>· Herzberg</span></div><div>Gráfico do estudo clássico</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 2min30s</span></div>
+    <div class="notes__body"><p>Herzberg responde a Pergunta 2: <em>sim</em>, dá para estar insatisfeito e motivado ao mesmo tempo. Olhem o contraste no slide.</p><p>Na <em>visão tradicional</em>, satisfação e insatisfação são extremos de um único eixo — mais de um é menos do outro. Herzberg quebra isso em <em>dois eixos independentes</em>: um vai de "satisfação" a "nenhuma satisfação" (governado pelos fatores motivacionais — realização, reconhecimento, o trabalho em si); o outro vai de "insatisfação" a "nenhuma insatisfação" (governado pelos higiênicos — supervisão, condições, remuneração, políticas).</p><p>O ponto: mexer no salário só tira a insatisfação, não cria motivação. No estágio de Chris, os higiênicos estão quase ausentes, mas os motivacionais presentes — por isso ele se mantém. Devolvo ao tema do desempenho.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S19 — CAP 5 ===== -->
+<section class="slide s-perf" data-slide="19">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Capítulo 5 · Complemento</span></div><div>Motivação → desempenho</div></div>
+  <div class="watermark">19</div>
+  <div class="head"><h2 class="h2">Motivação não vira desempenho <i>sozinha</i>.</h2></div>
+  <div class="bar5">
+    <div class="pill"><div class="num">01</div><b>Variedade</b></div>
+    <div class="pill"><div class="num">02</div><b>Identidade</b></div>
+    <div class="pill"><div class="num">03</div><b>Significado</b></div>
+    <div class="pill"><div class="num">04</div><b>Autonomia</b></div>
+    <div class="pill"><div class="num">05</div><b>Feedback</b></div>
+  </div>
+  <div class="scene-box">
+    <h4>CENA · LIGAÇÕES NA CORRETORA</h4>
+    <h3>"Não desligar o telefone economiza segundos.<br/>Em seis meses, segundos viram a vaga."</h3>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">19 / 22</span><span>· Cap. 5</span></div><div>Características do cargo</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Victor D. N. Silva</b><span class="t">⏱ 90s</span></div>
+    <div class="notes__body"><p>O Cap. 4 explica de onde vem a motivação; o Cap. 5, como ela vira <em>desempenho</em>. O modelo das características do cargo tem cinco fatores: variedade, identidade, significado, autonomia e feedback.</p><p>Na cena das ligações, Chris transforma motivação em método — não desliga o telefone, não toma água, liga direto para o decisor. Só consegue porque tem <em>autonomia</em> para decidir como executar e <em>feedback</em> imediato em números. Devolvo ao Gabriel.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S20 — ADS ===== -->
+<section class="slide s-ads" data-slide="20">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Aplicação · ADS</span></div><div>Da corretora ao squad de tecnologia</div></div>
+  <div class="watermark">20</div>
+  <div class="head"><h2 class="h2">E quem <i>desenvolve sistemas</i>?</h2></div>
+  <div class="grid">
+    <div class="card"><div class="ic">$</div><h3>Salário</h3><div class="link">→ Higiênico</div></div>
+    <div class="card alt"><div class="ic">◉</div><h3>Autonomia</h3><div class="link">→ Cap. 5</div></div>
+    <div class="card alt2"><div class="ic">↺</div><h3>Feedback</h3><div class="link">→ Cap. 5</div></div>
+    <div class="card alt"><div class="ic">⌂</div><h3>Ambiente</h3><div class="link">→ M + H + A</div></div>
+    <div class="card alt2"><div class="ic">↗</div><h3>Crescimento</h3><div class="link">→ ERC</div></div>
+    <div class="card"><div class="ic">★</div><h3>Reconhecimento</h3><div class="link">→ Motivacional</div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">20 / 22</span><span>· ADS</span></div><div>Mesma teoria, contexto novo</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>Volto para fechar com ADS. Por que esse filme dos anos 80 fala com quem se forma em tecnologia em 2026? Porque o modelo é o mesmo.</p><p>Para um dev, QA ou analista: salário é higiênico — evita o ruim, não engaja. Autonomia técnica, feedback, ambiente, crescimento e reconhecimento é que sustentam motivação. Time desmotivado raramente é "preguiçoso" — quase sempre é baixo significado de tarefa, pouca autonomia ou feedback inexistente. A teoria é ferramenta de diagnóstico.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S21 — SÍNTESE ===== -->
+<section class="slide s-syn" data-slide="21">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Síntese</span></div><div>Tudo em uma página</div></div>
+  <div class="watermark">21</div>
+  <h2 class="h2">As teorias, <i>em uma jornada.</i></h2>
+  <div class="table">
+    <div class="row head"><div class="cell">Teoria</div><div class="cell">Ideia</div><div class="cell">Cena</div><div class="cell">Aprendizado</div></div>
+    <div class="row"><div class="cell theory">Clássica<span>Taylor</span></div><div class="cell idea">Trabalho por dinheiro.</div><div class="cell scene"><b>Cena</b>O scanner.</div><div class="cell learn"><b>Não explica</b> a persistência sem ele.</div></div>
+    <div class="row"><div class="cell theory">Equidade<span>Adams</span></div><div class="cell idea">Comparar esforço × recompensa.</div><div class="cell scene"><b>Cena</b>Sob pressão.</div><div class="cell learn">Percebe <b>injustiça</b> e continua.</div></div>
+    <div class="row"><div class="cell theory">Expectativa<span>Vroom</span></div><div class="cell idea">Apostar no futuro.</div><div class="cell scene"><b>Cena</b>Persistir no estágio.</div><div class="cell learn">Esforço sustentado pela <b>expectativa</b>.</div></div>
+    <div class="row"><div class="cell theory">Maslow<span>Hierarquia</span></div><div class="cell idea">Cinco níveis · def. × cresc.</div><div class="cell scene"><b>Cena 1</b>Banheiro da estação.</div><div class="cell learn">Básico ameaçado <b>domina</b> tudo.</div></div>
+    <div class="row"><div class="cell theory">ERC<span>Alderfer</span></div><div class="cell idea">E + R + C em paralelo.</div><div class="cell scene"><b>Cena</b>O estágio.</div><div class="cell learn">Necessidades acontecem <b>juntas</b>.</div></div>
+    <div class="row"><div class="cell theory">Herzberg<span>Dupla Estrutura</span></div><div class="cell idea">Evitar ≠ motivar.</div><div class="cell scene"><b>Cena 2</b>A contratação.</div><div class="cell learn">Salário <b>não substitui</b> sentido.</div></div>
+    <div class="row"><div class="cell theory">Cap. 5<span>Cargo · Aprendizagem</span></div><div class="cell idea">Cargo bem desenhado + reforço.</div><div class="cell scene"><b>Cena</b>As ligações.</div><div class="cell learn">Motivação vira <b>método</b>.</div></div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">21 / 22</span><span>· Síntese</span></div><div>Cap. 4 + Cap. 5</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 90s</span></div>
+    <div class="notes__body"><p>Resumo executivo: as lentes teóricas e as cenas que as comprovam. Se guardarem só esse painel, cumprimos o objetivo.</p><p>O que ele deixa claro: <em>nenhuma teoria sozinha explica o Chris</em> — e, por extensão, nenhum time de trabalho. As teorias são lentes; o bom gestor, e o bom profissional de ADS, sabe trocar de lente.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+<!-- ===== S22 — CONCLUSÃO ===== -->
+<section class="slide s-end" data-slide="22">
+  <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Conclusão</span></div><div>UFPR · TADS · 2026</div></div>
+  <div class="watermark">22</div>
+  <p class="kicker">Fechamento</p>
+  <h1>Pessoas não são movidas por <b>uma única necessidade</b>.<br/>Organizações que entendem isso transformam <em>esforço</em> em desempenho.</h1>
+  <div class="sig">
+    <div class="credits">
+      <div><b>Apresentação</b><span>Samuel Natel</span></div>
+      <div><b>Apresentação</b><span>João G. Pivatto</span></div>
+      <div><b>Apresentação</b><span>João Victor Silva</span></div>
+      <div><b>Apresentação</b><span>Gabriel Albuquerque</span></div>
+    </div>
+    <div class="endmark"><b>obrigado.</b>UFPR · TADS · CO · 2026</div>
+  </div>
+  <div class="chrome-bottom"><div class="ticker"><span class="num">22 / 22</span><span>· Fim</span></div><div>Perguntas? Voltamos ao mapa (slide 06)</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>Gabriel C. de Albuquerque</b><span class="t">⏱ 90s</span></div>
+    <div class="notes__body"><p>Para fechar. <em>À Procura da Felicidade</em> não é sobre superação — é sobre como necessidades humanas se combinam e movem comportamento.</p><p>E a organização importa: a corretora não "salva" o Chris, ela <em>oferece o que faltava</em> — estabilidade, reconhecimento, caminho. É o que uma organização madura faz, em Wall Street nos anos 80 e num squad de tecnologia em 2026.</p><p>Quem entende motivação como sistema, não como traço de personalidade, entrega times e produtos melhores. Obrigado.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
+  </div>
+</div>
+
+<div class="hud">
+  <button id="prev" title="Anterior · ou clique direito">‹</button>
+  <span class="pos"><b id="cur">01</b>/<span id="tot">22</span></span>
+  <button id="next" title="Próximo · ou clique esquerdo">›</button>
+  <span class="key" id="keyF" title="Tela cheia (F)">F</span>
+  <span class="key" id="keyH" title="Esconder / mostrar barra (H)">H</span>
+</div>
+
+<script>
+(function(){
+  const deck=document.getElementById('deck');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const total=slides.length;
+  const curEl=document.getElementById('cur');
+  const totEl=document.getElementById('tot');
+  const prevBtn=document.getElementById('prev');
+  const nextBtn=document.getElementById('next');
+  let current=0;
+  totEl.textContent=String(total).padStart(2,'0');
+  function show(n){
+    current=Math.max(0,Math.min(total-1,n));
+    slides.forEach((s,i)=>s.classList.toggle('is-active',i===current));
+    curEl.textContent=String(current+1).padStart(2,'0');
+    const p=((current+1)/total)*100;
+    document.querySelectorAll('.progress__bar').forEach(b=>b.style.width=p+'%');
+    window.location.hash=String(current+1);
+  }
+  function next(){show(current+1)} function prev(){show(current-1)}
+  function toggleFs(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();}
+  function toggleHud(){document.body.classList.toggle('hud-hidden');}
+  nextBtn.addEventListener('click',next);
+  prevBtn.addEventListener('click',prev);
+  document.getElementById('keyF').addEventListener('click',toggleFs);
+  document.getElementById('keyH').addEventListener('click',toggleHud);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();next();}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    if(e.key==='Home')show(0);
+    if(e.key==='End')show(total-1);
+    if(e.key==='n'||e.key==='N')document.body.classList.toggle('notes-hidden');
+    if(e.key==='h'||e.key==='H')toggleHud();
+    if(e.key==='f'||e.key==='F')toggleFs();
+  });
+  /* clique esquerdo avança · clique direito volta */
+  document.addEventListener('click',e=>{if(e.target.closest('.hud'))return;next();});
+  document.addEventListener('contextmenu',e=>{e.preventDefault();if(e.target.closest('.hud'))return;prev();});
+  let tx=0;
+  deck.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX});
+  deck.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)dx<0?next():prev();});
+  const h=parseInt(window.location.hash.replace('#',''),10);
+  if(!isNaN(h)&&h>=1&&h<=total)show(h-1);else show(0);
+  function scale(){const s=Math.min(window.innerWidth/1600,window.innerHeight/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;}
+  window.addEventListener('resize',scale);
+  window.addEventListener('orientationchange',scale);
+  scale();
+})();
+</script>
+</body>
+</html>
