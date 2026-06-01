@@ -134,6 +134,12 @@ body.notes-hidden .notes{display:none}
 .frame .frame-label{color:rgba(244,180,0,.8);margin-bottom:6px;font-size:11px;letter-spacing:.2em}
 .frame .frame-hint{color:rgba(244,240,232,.55);font-family:'Fraunces',serif;font-style:italic;font-size:13px;text-transform:none;letter-spacing:0;max-width:80%;line-height:1.4}
 
+/* embed de cena (YouTube) — preenche o frame mantendo o recorte */
+.frame.video,.ph.video{position:relative;padding:0;border-style:solid;border-color:rgba(244,180,0,.22);background:#000;overflow:hidden}
+.frame.video::before{display:none}
+.frame.video iframe,.frame.video video,.ph.video iframe,.ph.video video{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:inherit;display:block;object-fit:cover;background:#000}
+.s-bath .frame-big .ph.video{width:100%;height:100%;border:0;border-radius:0}
+
 /* ============================================================ SLIDE 1 — CAPA ============================================================ */
 .s-cover{background:radial-gradient(ellipse at 20% 30%,rgba(139,92,246,.22),transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(255,140,66,.18),transparent 55%),linear-gradient(180deg,#06080f 0%,#0A0E1A 100%)}
 .s-cover .city{
@@ -469,10 +475,8 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
         <div><b>04</b><span>Gabriel C. de Albuquerque</span></div>
       </div>
     </div>
-    <div class="frame cover-frame">
-      <div class="frame-icon">▶</div>
-      <div class="frame-label">Imagem · Capa</div>
-      <div class="frame-hint">Frame icônico do filme — Chris e o filho, ou a silhueta de São Francisco.</div>
+    <div class="frame cover-frame video">
+      <video src="assets/cenas/01-trailer.mp4" autoplay muted loop playsinline preload="auto" aria-label="Trailer oficial — À Procura da Felicidade (2006)"></video>
     </div>
   </div>
   <div class="chrome-bottom"><div class="ticker"><span class="num">01 / 18</span><span>· Abertura</span></div><div>→ avançar · F tela cheia</div></div>
@@ -534,10 +538,8 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
 <section class="slide s-synopsis" data-slide="4">
   <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Sinopse</span></div><div>117 min · Drama · 2006</div></div>
   <div class="watermark">04</div>
-  <div class="frame">
-    <div class="frame-icon">▶</div>
-    <div class="frame-label">Cena · Chris e o filho na rua</div>
-    <div class="frame-hint">Chris segurando a mão do filho — caminhando pela cidade.</div>
+  <div class="frame video">
+    <video src="assets/cenas/02-sinopse.mp4" controls preload="metadata" playsinline aria-label="Cena — Chris e o filho no metrô"></video>
   </div>
   <div class="text">
     <div class="filmcard"><span>Baseado em fatos reais</span> · <b>Chris Gardner</b></div>
@@ -638,10 +640,8 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
     </div>
   </div>
   <div class="col scene">
-    <div class="frame">
-      <div class="frame-icon">▶</div>
-      <div class="frame-label">Cena · O scanner médico</div>
-      <div class="frame-hint">Chris tentando vender. Recusas sucessivas.</div>
+    <div class="frame video">
+      <video src="assets/cenas/03-scanner.mp4" controls preload="metadata" playsinline aria-label="Cena — O scanner médico"></video>
     </div>
   </div>
   <div class="chrome-bottom"><div class="ticker"><span class="num">07 / 18</span><span>· Tradicional</span></div><div>Limite · visão econômica</div></div>
@@ -732,7 +732,7 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
 <!-- ===== SLIDE 10 — CENA BANHEIRO ===== -->
 <section class="slide s-bath" data-slide="10">
   <div class="full">
-    <div class="frame-big"><div class="ph"><b>CENA · BANHEIRO DA ESTAÇÃO BART</b><span>Chris e o filho passam a noite trancados no banheiro de uma estação de metrô.</span></div></div>
+    <div class="frame-big"><div class="ph video"><video src="assets/cenas/04-banheiro.mp4" controls preload="metadata" playsinline aria-label="Cena — Banheiro da estação BART"></video></div></div>
   </div>
   <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena-evidência</span></div><div>Fisiológicas + segurança</div></div>
   <div class="overlay"><p class="quote">Quando o básico está ameaçado,<br/>ele <b>domina tudo</b>.</p></div>
@@ -848,10 +848,8 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
   <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Cena-síntese</span></div><div>A teoria toda em uma cena</div></div>
   <div class="watermark">14</div>
   <div class="col-l">
-    <div class="frame">
-      <div class="frame-icon">▶</div>
-      <div class="frame-label">Cena · A contratação</div>
-      <div class="frame-hint">Cena final — Chris recebe a notícia da vaga. Rosto contido, lágrimas.</div>
+    <div class="frame video">
+      <video src="assets/cenas/05-contratacao.mp4" controls preload="metadata" playsinline aria-label="Cena — A contratação (cena final)"></video>
     </div>
   </div>
   <div class="col-r">
