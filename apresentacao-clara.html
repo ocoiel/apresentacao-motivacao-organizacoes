@@ -717,6 +717,23 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
   <div class="progress"><div class="progress__bar"></div></div>
 </section>
 
+<!-- ===== S — CENA COMPLETA BANHEIRO (PT-BR) ===== -->
+<section class="slide s-scene" data-slide="12b">
+  <div class="frame-big"><div class="ph video"><video src="assets/cenas/07-banheiro-ptbr.mp4" controls preload="metadata" playsinline aria-label="Cena completa — Dormindo no banheiro (legendado PT-BR)"></video></div></div>
+  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena completa</span></div><div>Legendado em PT-BR</div></div>
+  <div class="cap">
+    <div class="lab">Cena completa · PT-BR</div>
+    <p class="q">Sem teto e sem segurança,<br/>o que sustenta é o <b>vínculo</b>.</p>
+    <div class="tags"><span>Fisiológicas</span><span>Segurança</span><span>Vínculo que sustenta</span></div>
+  </div>
+  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">13 / 23</span><span>· Cena PT-BR</span></div><div>A noite no banheiro · 3 min</div></div>
+  <div class="notes">
+    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 3min30s</span></div>
+    <div class="notes__body"><p>Agora a cena completa, legendada. Sem ter onde dormir, Chris transforma o banheiro da estação numa "máquina do tempo" para proteger o filho do medo.</p><p>É Maslow na pele: as necessidades <em>fisiológicas</em> e de <em>segurança</em> colapsam ao mesmo tempo — e o que sustenta os dois é o nível <em>social</em>, o vínculo com o filho. Nas organizações, quando o básico falta nenhuma meta se sustenta; mas pertencimento e propósito seguram as pessoas mais do que se imagina.</p></div>
+  </div>
+  <div class="progress"><div class="progress__bar"></div></div>
+</section>
+
 <!-- ===== S13 — APRENDIZAGEM ===== -->
 <section class="slide s-learn" data-slide="13">
   <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Teoria da Aprendizagem</span></div><div>Condicionamento operante</div></div>
@@ -993,6 +1010,7 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
   const nextBtn=document.getElementById('next');
   let current=0;
   totEl.textContent=String(total).padStart(2,'0');
+  slides.forEach((s,i)=>{const n=s.querySelector('.ticker .num');if(n)n.textContent=String(i+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');});
   function show(n){
     current=Math.max(0,Math.min(total-1,n));
     slides.forEach((s,i)=>s.classList.toggle('is-active',i===current));
