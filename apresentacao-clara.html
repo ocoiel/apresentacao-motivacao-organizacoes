@@ -140,9 +140,9 @@ body.notes-hidden .notes{display:none}
 .s-goal .link svg{width:30px;height:30px}
 
 /* ============================================================ S4 — SINOPSE ============================================================ */
-.s-synopsis{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.s-synopsis{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .s-synopsis .frame{height:620px}
-.s-synopsis .text{padding-right:20px}
+.s-synopsis .text{max-width:920px}
 .s-synopsis .filmcard{display:inline-flex;gap:14px;align-items:center;padding:8px 14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:50px;margin-bottom:30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;box-shadow:var(--shadow-sm)}
 .s-synopsis .filmcard b{color:var(--gold)}
 .s-synopsis p{font-family:'Fraunces',serif;font-size:30px;line-height:1.35;color:var(--ink);margin:0 0 22px;font-weight:500}
@@ -528,7 +528,6 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
 <section class="slide s-synopsis" data-slide="4">
   <div class="chrome-top"><div class="mark"><span class="dot"></span><span>Sinopse</span></div><div>117 min · Drama · 2006</div></div>
   <div class="watermark">04</div>
-  <div class="frame video"><video src="assets/cenas/02-sinopse.mp4" controls preload="metadata" playsinline aria-label="Cena — Chris e o filho no metrô"></video></div>
   <div class="text">
     <div class="filmcard"><span>Baseado em fatos reais</span> · <b>Chris Gardner</b></div>
     <p>São Francisco, anos 80. Um vendedor falido. Um filho pequeno.</p>
