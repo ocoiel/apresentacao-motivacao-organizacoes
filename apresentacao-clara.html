@@ -174,8 +174,8 @@ body.notes-hidden .notes{display:none}
 .s-map .dot:nth-child(6){border-color:var(--gold);background:var(--gold);color:#fff;box-shadow:0 0 0 7px var(--paper),var(--shadow-sm)}
 
 /* ============================================================ S7 — CLÁSSICA ============================================================ */
-.s-trad{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-.s-trad .col{padding-top:6px}
+.s-trad{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:50px}
+.s-trad .col{padding-top:6px;max-width:1080px;width:100%}
 .s-trad .label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ember);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .s-trad .label::before{content:"";width:24px;height:1px;background:var(--ember)}
 .s-trad h2{font-size:60px;line-height:.98;margin-bottom:30px}
@@ -587,7 +587,6 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
       <div class="panel no"><h4>↓ Não explica</h4><ul><li>Estágio <b>sem salário</b></li><li>Estudar de madrugada</li><li>Recusar atalhos</li></ul></div>
     </div>
   </div>
-  <div class="col scene"><div class="frame video"><video src="assets/cenas/03-scanner.mp4" controls preload="metadata" playsinline aria-label="Cena — O scanner médico"></video></div></div>
   <div class="chrome-bottom"><div class="ticker"><span class="num">07 / 22</span><span>· Clássica</span></div><div>Limite · visão econômica</div></div>
   <div class="notes">
     <div class="notes__meta">Apresentador<b>Samuel Natel</b><span class="t">⏱ 2min</span></div>
@@ -700,36 +699,19 @@ body.hud-hidden .hud{opacity:0;pointer-events:none;transform:translateX(-50%) tr
   <div class="progress"><div class="progress__bar"></div></div>
 </section>
 
-<!-- ===== S12 — CENA · BANHEIRO ===== -->
-<section class="slide s-scene" data-slide="12">
-  <div class="frame-big"><div class="ph video"><video src="assets/cenas/04-banheiro.mp4" controls preload="metadata" playsinline aria-label="Cena — Banheiro da estação BART"></video></div></div>
-  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena-evidência</span></div><div>Fisiológicas + segurança</div></div>
-  <div class="cap">
-    <div class="lab">Cena · níveis 1 e 2</div>
-    <p class="q">Quando o básico está ameaçado,<br/>ele <b>domina tudo</b>.</p>
-    <div class="tags"><span>Fisiológicas</span><span>Segurança</span><span>Não é "falta de esforço"</span></div>
-  </div>
-  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">12 / 22</span><span>· Cena</span></div><div>Maslow aplicado</div></div>
-  <div class="notes">
-    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 90s</span></div>
-    <div class="notes__body"><p>Cena-evidência perfeita: sem lugar para dormir, Chris e o filho passam a noite trancados no banheiro de uma estação.</p><p>Quando o fisiológico e a segurança estão ameaçados, eles <em>dominam</em> a atenção — não dá para focar em desempenho ou planejamento. Nas organizações: funcionário em insegurança financeira ou de saúde não entrega o mesmo. Não é "falta de motivação", é estrutura humana.</p></div>
-  </div>
-  <div class="progress"><div class="progress__bar"></div></div>
-</section>
-
 <!-- ===== S — CENA COMPLETA BANHEIRO (PT-BR) ===== -->
 <section class="slide s-scene" data-slide="12b">
-  <div class="frame-big"><div class="ph video"><video src="assets/cenas/07-banheiro-ptbr.mp4" controls preload="metadata" playsinline aria-label="Cena completa — Dormindo no banheiro (legendado PT-BR)"></video></div></div>
-  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena completa</span></div><div>Legendado em PT-BR</div></div>
+  <div class="frame-big"><div class="ph video"><video src="assets/cenas/07-banheiro-ptbr.mp4" controls preload="metadata" playsinline aria-label="Cena — Dormindo no banheiro · minuto final (legendado PT-BR)"></video></div></div>
+  <div class="chrome-top" style="z-index:4"><div class="mark"><span class="dot"></span><span>Maslow · Cena-evidência</span></div><div>Legendado em PT-BR</div></div>
   <div class="cap">
-    <div class="lab">Cena completa · PT-BR</div>
+    <div class="lab">A noite no banheiro · PT-BR</div>
     <p class="q">Sem teto e sem segurança,<br/>o que sustenta é o <b>vínculo</b>.</p>
     <div class="tags"><span>Fisiológicas</span><span>Segurança</span><span>Vínculo que sustenta</span></div>
   </div>
-  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">13 / 23</span><span>· Cena PT-BR</span></div><div>A noite no banheiro · 3 min</div></div>
+  <div class="chrome-bottom" style="z-index:4"><div class="ticker"><span class="num">13 / 23</span><span>· Cena PT-BR</span></div><div>A noite no banheiro · o minuto final</div></div>
   <div class="notes">
-    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 3min30s</span></div>
-    <div class="notes__body"><p>Agora a cena completa, legendada. Sem ter onde dormir, Chris transforma o banheiro da estação numa "máquina do tempo" para proteger o filho do medo.</p><p>É Maslow na pele: as necessidades <em>fisiológicas</em> e de <em>segurança</em> colapsam ao mesmo tempo — e o que sustenta os dois é o nível <em>social</em>, o vínculo com o filho. Nas organizações, quando o básico falta nenhuma meta se sustenta; mas pertencimento e propósito seguram as pessoas mais do que se imagina.</p></div>
+    <div class="notes__meta">Apresentador<b>João Guilherme Pivatto</b><span class="t">⏱ 2min</span></div>
+    <div class="notes__body"><p>A cena, legendada — o minuto final. Sem ter onde dormir, Chris transforma o banheiro da estação numa "máquina do tempo" para proteger o filho do medo.</p><p>É Maslow na pele: as necessidades <em>fisiológicas</em> e de <em>segurança</em> colapsam ao mesmo tempo — e o que sustenta os dois é o nível <em>social</em>, o vínculo com o filho. Nas organizações, quando o básico falta nenhuma meta se sustenta; mas pertencimento e propósito seguram as pessoas mais do que se imagina.</p></div>
   </div>
   <div class="progress"><div class="progress__bar"></div></div>
 </section>
